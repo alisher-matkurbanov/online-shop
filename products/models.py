@@ -14,4 +14,4 @@ class Review(models.Model):
         validators=[MaxValueValidator(5), MinValueValidator(1)]
     )
     comment = models.TextField()
-    user = models.ForeignKey('accounts.User', related_name='reviews', on_delete=models.CASCADE)
+    user = models.ForeignKey('accounts.Account', related_name='reviews', on_delete=models.CASCADE)
