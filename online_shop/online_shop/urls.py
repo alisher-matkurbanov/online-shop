@@ -14,13 +14,28 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.http import JsonResponse
 from django.urls import path, include
-from rest_framework import routers
+from rest_framework import routers, status
+from rest_framework.response import Response
+
 from accounts import views as accounts_views
 
 router = routers.SimpleRouter()
 router.register('', accounts_views.AccountViewSet, basename='accounts')
 
+
+def handler404(*args, **kwargs):
+    return JsonResponse(
+        data={'detail': 'Not found.'},
+        status=status.HTTP_404_NOT_FOUND
+    )
+
+
+handler500 = 'rest_framework.exceptions.server_error'
+handler400 = 'rest_framework.exceptions.bad_request'
+
 urlpatterns = [
+    path('', handler404),
     path('api/', include(router.urls)),
 ]

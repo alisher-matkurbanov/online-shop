@@ -1,0 +1,22 @@
+version: "3.3"
+
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=online_shop
+      - POSTGRES_USER=online_shop
+      - POSTGRES_PASSWORD=online_shop
+  api:
+    environment:
+      - DATABASE=postgres
+      - SQL_HOST=db
+      - SQL_PORT=5432
+    build: ./online_shop
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./online_shop:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db

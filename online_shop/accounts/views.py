@@ -14,6 +14,7 @@ from accounts.serializers import AccountSerializer
 class AccountViewSet(ModelViewSet):
     serializer_class = AccountSerializer
     renderer_classes = [JSONRenderer]
+    queryset = Account.objects.all()
     
     @staticmethod
     def is_valid(serializer) -> (bool, Optional[Response]):
@@ -29,6 +30,12 @@ class AccountViewSet(ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST,
             )
         return True, None
+    
+    def list(self, request, *args, **kwargs):
+        return Response(
+            data={'detail': 'Not found.'},
+            status=status.HTTP_404_NOT_FOUND
+        )
     
     @action(detail=False, methods=['post'])
     def register(self, request, *args, **kwargs):

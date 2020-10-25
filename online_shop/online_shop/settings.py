@@ -22,9 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '4s!rh+oa)t-_*+kwfrq!o5@*ah)yc&-l-ipbj7nw_7i-ho)n+7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '0.0.0.0'
+]
 
 # Application definition
 
@@ -81,6 +83,8 @@ DATABASES = {
         'USER': 'online_shop',
         'NAME': 'online_shop',
         'PASSWORD': 'online_shop',
+        'HOST': 'db',
+        'PORT': 5432,
         'TEST': {
             'NAME': 'test-db',
         },
@@ -127,5 +131,11 @@ AUTH_USER_MODEL = "accounts.Account"
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-    ]
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
 }
+
+
