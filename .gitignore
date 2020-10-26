@@ -2,3 +2,5 @@
 __pycache__/
 .idea/
 online_shop/venv/
+.api_env
+.db_env
